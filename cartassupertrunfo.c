@@ -12,14 +12,18 @@ int main(){
     char cidade2[10] = "02";
     char codigo1[10] = "A01";
     char codigo2[10] = "B02";
-    float densidadePopulacional1 = 0.0;
+    float densidadePopulacional1 = 0.0; //=0.0 porque precisamos declarar as variaveis, mas esta conta sera feita depois do usuario inserir os valores das variaveis utilizadas na conta
     float densidadePopulacional2 = 0.0;
     float pibPerCapita1 = 0.0; 
     float pibPerCapita2 = 0.0;
     float superPoder1 = 0.0;
     float superPoder2 = 0.0;
+    float inversodensidade1 = 0.0;
+    float inversodensidade2 = 0.0;
+    float densidadepopulacionalinversa1 = 0.0;
+    float densidadepopulacionalinversa2 = 0.0;
     
-
+//solicitando dados do usuario carta 1
     printf("Carta 1 - Digite a populacao: \n");
     scanf("%lu", &populacao1);
     
@@ -34,6 +38,7 @@ int main(){
 
     printf("\n\n");
     
+    //solicitando dados do usuario carta 2
     printf("Carta 2 - Digite a População: \n");
     scanf("%lu", &populacao2);
     
@@ -46,13 +51,25 @@ int main(){
     printf("Digite o PIB: \n");
     scanf("%f", &pib2);
 
+    //depois do usuario inserir os valores, podemos fazer as contas de densidade populacional e pib per capita
+
     densidadePopulacional1 = populacao1/area1;
     densidadePopulacional2 = populacao2/area2;
     pibPerCapita1 = pib1/populacao1; 
     pibPerCapita2 = pib2/populacao2;
 
-    superPoder1 = populacao1 + area1 + pib1 + pibPerCapita1 + (1/densidadePopulacional1);
-    superPoder2 = populacao2 + area2 + pib2 + pibPerCapita2 + (1/densidadePopulacional2);
+//calculo densidade populacional inversa
+
+    inversodensidade2 = densidadePopulacional2 / 1;
+ 	densidadepopulacionalinversa2 = densidadePopulacional2 * inversodensidade2;
+
+    inversodensidade1 = densidadePopulacional1 / 1;
+ 	densidadepopulacionalinversa1 = densidadePopulacional1 * inversodensidade1;
+
+//calculo do super poder
+
+    superPoder1 = populacao1 + area1 + pib1 + pibPerCapita1 + densidadepopulacionalinversa1;
+    superPoder2 = populacao2 + area2 + pib2 + pibPerCapita2 + densidadepopulacionalinversa2;
 
     printf("\n\n");
 
@@ -88,5 +105,32 @@ int main(){
     printf("=======================================\n");
 
 
-    return 0;
-}
+    //Comparação das cartas
+     /*
+     1 - verdadeiro - carta 1
+ 
+     0 - falso - carta 2
+     */
+ 
+     int populacao = populacao1 > populacao2;
+     int area = area1 > area2;
+     int PIB = pib1 > pib2;
+     int pontos_turisticos = pontosTuristicos1 > pontosTuristicos2;
+     int densidade_populacional = densidadepopulacionalinversa1 < densidadepopulacionalinversa2;
+     int PIB_per_Capita = pibPerCapita1 > pibPerCapita2;
+     int Super_Poder = superPoder1 > superPoder2;
+ 
+ 	//Exibir as características vencedoras das cartas
+     printf("Características vencedoras das cartas:\n");
+     printf("\n");
+     printf("População: Carta %s venceu (%d)\n", populacao ? "1" : "2", populacao);
+     printf("Área: Carta %s venceu (%d)\n", area ? "1" : "2", area);
+     printf("PIB: Carta %s venceu (%d)\n", PIB ? "1" : "2", PIB);
+     printf("Número de Pontos Turísticos: Carta %s venceu (%d)\n", pontos_turisticos ? "1" : "2", pontos_turisticos);
+     printf("Densidade Populacional: Carta %s venceu (%d)\n", densidade_populacional ? "1" : "2", densidade_populacional);
+     printf("PIB per Capita: Carta %s venceu (%d)\n", PIB_per_Capita ? "1" : "2", PIB_per_Capita);
+     printf("Super Poder: Carta %s venceu (%d)\n", Super_Poder ? "1" : "2", Super_Poder);
+     
+ 	return 0;
+ 
+ }
